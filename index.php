@@ -1,6 +1,6 @@
 ﻿<?php
      session_start();
-     if(isset($_SESSION['c_name']))
+     if(isset($_SESSION['user_name']))
      {
                                       // echo 'inside';                          
                             // echo '<a href="profile.php">'      
@@ -12,7 +12,7 @@
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> index</title>
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
 	<!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -40,7 +40,7 @@
 padding: 15px 50px 5px 50px;
 float: right;
 font-size: 16px;">  <?php
-                                                echo $_SESSION['c_name'];
+                                                echo $_SESSION['user_name'];
 
                       ?> <a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
@@ -54,33 +54,19 @@ font-size: 16px;">  <?php
 				
 					
                     <li>
-                        <a class="active-menu"  href="index.php"><i class="fa fa-home fa-3x"></i> Dashboard</a>
-                    </li>
-                     <li>
-                        <a  href="profile.php"><i class="fa fa-user fa-3x"></i>Profile</a>
+                        <a class="active-menu"  href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
                     <li>
+                     
                         <a  href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i> change password</a>
                     </li>
+						   <li>
+                        <a  href="profile.php"><i class="fa fa-qrcode fa-3x"></i> Edit Profile</a>
                     </li>
-					 <li >
-                        <a  href="workers.php"><i class="fa fa-bar-chart-o fa-3x"></i>Add Workers</a>
-                    </li>	
-                    
-                    <li  >
-                        <a    href="#"><i class="fa fa-user fa-3x"></i>Leave Update</a>\ <ul class="nav nav-second-level">
-                        <li>
-                                <a  href="viewleave.php">Approve Leave</a>
-                            </li>
-                             <li>
-                                <a href="lapproval.php">Pending</a>
-                            </li>
-                            <li>
-                                <a href="lreject.php">reject</a>
-                            </li>
-                      
-                      
-                  
+                      <li  >
+                        <a  href="table.php"><i class="fa fa-table fa-3x"></i> Admin Appproval</a>
+                    </li>
+                   
                 </ul>
                
             </div>
@@ -91,18 +77,18 @@ font-size: 16px;">  <?php
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Contractor Dashboard</h2>   
-                        <h5>Welcome  Contractor, Love to see you back. </h5>
+                     <h2>Admin Dashboard</h2>   
+                        <h5>Welcome  Admin, Love to see you back. </h5>
                     </div>
                     <p style="color:white ;">Welcome</p>
                 </li>
                 <?php
                 echo '<center>welecome to admin page ';
-                                                echo '<center><h2 style="color:black ;"><b>'.$_SESSION['c_name'].'</b></h2>';
+                                                echo '<center><h2 style="color:black ;"><b>'.$_SESSION['user_name'].'</b></h2>';
 
                       ?>
-                <li class="nav-item">
-                </li>
+                <!-- <li class="nav-item">
+                </li> -->
               </ul>
                  <!-- /. ROW  -->           
     </div>

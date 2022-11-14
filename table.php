@@ -25,6 +25,30 @@
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 </head>
 <body>
+    <style>
+#builder {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        #builder td, #builder th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        }
+
+        /* #builder tr:nth-child(even){background-color: #f2f2f2;} */
+
+        #builder tr:hover {background-color: #ddd;}
+
+        #builder th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: grey;
+        color: white;
+        }
+        </style>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -35,17 +59,16 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="index.html">
-                <?php
-                                                echo '<h6 style="color:white ;"><b>'.$_SESSION['user_name'].'</b></h6>';
-
-                      ?>
+                DREAM HOME
                 </a> 
                
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;">  <a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+font-size: 16px;"> <?php    echo $_SESSION['user_name'];
+
+?> &nbsp; <a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
@@ -59,24 +82,16 @@ font-size: 16px;">  <a href="../login/logout.php" class="btn btn-danger square-b
                     <li>
                         <a  href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
-                   <li>
-                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
+                      
+                    <li>
+                        <a  href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i>change password</a>
                     </li>
                     <li>
-                        <a  href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i> change password</a>
+                        <a  href="profile.php"><i class="fa fa-qrcode fa-3x"></i> Edit Profile</a>
                     </li>
-						   <li  >
-                        <a  href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
-                    </li>	
-                     
-                    <li  >
-                        <a  href="form.html"><i class="fa fa-edit fa-3x"></i> Forms </a>
-                    </li>				
-					
-					                   
-                   
-                        <a   href="blank.html"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
-                    </li>	
+                      <li  >
+                        <a class="active-menu"  href="table.php"><i class="fa fa-table fa-3x"></i>Admin Aprroval</a>
+                    </li>
                 </ul>
                
             </div>
@@ -88,7 +103,7 @@ font-size: 16px;">  <a href="../login/logout.php" class="btn btn-danger square-b
                 <div class="row">
                     <div class="col-md-12">
                      <h2>DREAM HOME</h2>   
-                        <h5>Change Password </h5>
+                        <h5>Admin Approval. </h5>
                        
                     </div>
                 </div>
@@ -117,6 +132,7 @@ font-size: 16px;">  <a href="../login/logout.php" class="btn btn-danger square-b
                                                 <th>usertype</th>
                                                 <th>phone no</th>
                                                 <th>username</th>
+                                                <th>Approve /Delete</th>
                                             </tr>
                                             <?php 
                                             $query="SELECT * From registration WHERE Status = 'pending' ORDER BY id ASC";
@@ -157,6 +173,7 @@ font-size: 16px;">  <a href="../login/logout.php" class="btn btn-danger square-b
                                                     $select ="UPDATE registration SET status='approved' WHERE id='$id'";
                                                     $result=mysqli_query($conn,$select);
                                                     echo '<script type="text/javascript">';
+                                                    echo 'window.location.href= "table.php";';
                                                     echo ' alert("Approved");';                                          
                                                     echo '</script>';
                                                     //return true;
@@ -168,6 +185,7 @@ font-size: 16px;">  <a href="../login/logout.php" class="btn btn-danger square-b
                                                 $select ="DELETE FROM  registration  WHERE id='$id'";
                                                 $result=mysqli_query($conn,$select);
                                                         echo '<script type="text/javascript">';
+                                                    echo 'window.location.href= "table.php";';
                                                         echo ' alert("deleted")';
                                                         echo '</script>';
                                             }
