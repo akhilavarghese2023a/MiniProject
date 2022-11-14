@@ -69,22 +69,36 @@ font-size: 16px;"> <?php    echo $_SESSION['user_name'];
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
 				
+					
                     <li>
                         <a  href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
-                      
+                    
                     <li>
                         <a  class="active-menu" href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i>change password</a>
                     </li>
                     <li>
                         <a  href="profile.php"><i class="fa fa-qrcode fa-3x"></i> Edit Profile</a>
                     </li>
-                      <li  >
-                        <a  href="table.php"><i class="fa fa-table fa-3x"></i>Admin Aprroval</a>
-                    </li>
-              
-                </ul>
-               
+						   <li  >
+                        <a  href="contractor.php"><i class="fa fa-bar-chart-o fa-3x"></i> Add Contractor</a>
+                    </li>	
+                    
+                			
+                    <li  >
+                        <a    href="#"><i class="fa fa-user fa-3x"></i>Approve user</a> <ul class="nav nav-second-level">
+                                <li>
+                                <a  href="approve.php">Request</a>
+                            </li>
+                             <li>
+                                <a href="reject.php">Approved</a>
+                            </li>
+                            <li>
+                                <a href="pending.php">reject</a>
+                            </li>
+                       
+                        </ul>
+                      </li>  	   
             </div>
             
         </nav>  
@@ -93,14 +107,15 @@ font-size: 16px;"> <?php    echo $_SESSION['user_name'];
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Tabs & Panels </h2>   
-                        <h5>Welcome Admin , Love to see you back. </h5>
+                     <h2>CHANGE PASSWORD </h2>   
+                        <h5>Welcome Builder , Love to see you back. </h5>
                        
                     </div>
                 </div>
                  <!-- /. ROW  -->
                  <hr />
                                  
+                 <div class="login-wrapper">
                  <form action="" class="form" method="POST">
         <h6>Old Password</h6>
         <div class="input-group">
@@ -116,7 +131,6 @@ font-size: 16px;"> <?php    echo $_SESSION['user_name'];
       </form>
       <div>
 </div>
-
                     <!-- /. ROW  -->
 
     </div>

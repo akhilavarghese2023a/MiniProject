@@ -1,5 +1,6 @@
-﻿<?php
+<?php
      session_start();
+     include("../config.php");
      if(isset($_SESSION['user_name']))
      {
                                       // echo 'inside';                          
@@ -23,6 +24,30 @@
     <link href="assets/css/custom.css" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <style>
+        #approve {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        #approve td, #approve th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        }
+
+        /* #builder tr:nth-child(even){background-color: #f2f2f2;} */
+
+        #approve tr:hover {background-color: #ddd;}
+
+        #approve th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: grey;
+        color: white;
+        }
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -54,7 +79,7 @@ font-size: 16px;">  <?php
 				
 					
                     <li>
-                        <a class="active-menu"  href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
                 
                     <li>
@@ -67,26 +92,28 @@ font-size: 16px;">  <?php
 						   <li  >
                         <a  href="contractor.php"><i class="fa fa-bar-chart-o fa-3x"></i> Add Contractor</a>
                     </li>	
-                      			
-					
+                   
                     <li  >
-                        <a    href="#"><i class="fa fa-user fa-3x"></i>Approve user</a>\ <ul class="nav nav-second-level">
+                        <a   class="active-menu"  href="approve.php"><i class="fa fa-square-o fa-3x"></i>Approve Request</a>
+                    </li>
+                   			
+                    <li  >
+                        <a    href="#"><i class="fa fa-user fa-3x"></i>Approve user</a> <ul class="nav nav-second-level">
                         <li>
-                                <a  href="approve.php">approved</a>
+                                <a   href="approve.php">Request</a>
                             </li>
                              <li>
-                                <a href="pending.php">Pending</a>
+                                <a class="active-menu"href="reject.php">Approved</a>
                             </li>
                             <li>
-                                <a href="reject.php">reject</a>
+                                <a   href="pending.php">reject</a>
                             </li>
                        
                         </ul>
-                      </li>  	
+                      </li>  	      			
+					
 					                   
                  
-                  
-                </ul>
                
             </div>
             
@@ -96,20 +123,53 @@ font-size: 16px;">  <?php
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Builder Dashboard</h2>   
-                        <h5>Welcome  Builder, Love to see you back. </h5>
+                     <h2>APPROVE REQUEST</h2>   
+                        <h5>Welcome  Builder, Love to see you back</h5>
                     </div>
-                    <p style="color:white ;">Welcome</p>
+                <li class="nav-item">
                 </li>
-                <?php
-                echo '<center>welecome to Builder page ';
-                                                echo '<center><h2 style="color:black ;"><b>'.$_SESSION['user_name'].'</b></h2>';
-
-                      ?>
-                <!-- <li class="nav-item">
-                </li> -->
               </ul>
-                 <!-- /. ROW  -->           
+              <div>
+              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <table id ="approve"  class="content-table">
+
+                                            <tr>
+                                                <th>User Name</th>
+                                                <th> Status</th>&nbsp;&nbsp;
+                                               
+                                               
+                                            </tr>
+                                            <?php 
+                                            $bid=$_SESSION['bid'];
+                                            
+                                            $query="SELECT * From request WHERE req_Status = 'Approved'and bid=$bid ORDER BY req_id ASC";
+                                            $result=mysqli_query($conn,$query);
+                                            while($row = mysqli_fetch_array($result))
+                                            {
+                                    
+                                            ?>
+                                    
+                                            <tr>
+                                                
+                                                <td><?php echo $row['username'];?></td>
+                                                <td><?php echo $row['req_status'];?></td>
+                                                
+                                               <td>
+                                            
+                                       
+                                        <?php
+                                        }
+                                        ?>
+                                        
+                                   
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+
+                 <!-- / ROW  -->           
     </div>
              <!-- /. PAGE INNER  -->
             </div>

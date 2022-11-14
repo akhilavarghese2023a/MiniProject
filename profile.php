@@ -36,7 +36,7 @@ $rs= mysqli_query($conn,$sql);
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <?php    echo $_SESSION['user_name'];
+font-size: 16px;"> <?php echo $_SESSION['user_name'];
 
                       ?> &nbsp; <a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
@@ -49,21 +49,37 @@ font-size: 16px;"> <?php    echo $_SESSION['user_name'];
 					</li>
 				
                     <li>
-                        <a  href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a   href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
+                
+                    <li>
+                        <a  href="changepasssw.php"><i class="fa fa-bar-chart-o fa-3x"></i> change password</a>
+                    </li>
+                    </li>
+                    
+                    <li>
+                        <a class="active-menu"  href="index.php"><i class="fa fa-qrcode fa-3x"></i> edit Profile</a>
+                    </li>
+						   <li  >
+                        <a  href="contractor.php"><i class="fa fa-bar-chart-o fa-3x"></i> Add Contractor</a>
+                    </li>	
                       
-                    <li>
-                        <a href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i>change password</a>
-                    </li>
-                    <li>
-                        <a  class="active-menu"  href="profile.php"><i class="fa fa-qrcode fa-3x"></i> Edit Profile</a>
-                    </li>
-                      <li  >
-                        <a  href="table.php"><i class="fa fa-table fa-3x"></i>Admin Aprroval</a>
-                    </li>
-              
-                </ul>
-               
+                    <li  >
+                        <a    href="#"><i class="fa fa-user fa-3x"></i>Approve user</a> <ul class="nav nav-second-level">
+                                <li>
+                                <a  href="approve.php">Request</a>
+                            </li>
+                             <li>
+                                <a href="reject.php">Approved</a>
+                            </li>
+                            <li>
+                                <a href="pending.php">reject</a>
+                            </li>
+                       
+                        </ul>
+                      </li>  	   
+					                   
+                 
             </div>
             
         </nav>  
@@ -72,8 +88,8 @@ font-size: 16px;"> <?php    echo $_SESSION['user_name'];
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>PROFIILE </h2>   
-                        <h5>Welcome Admin , Love to see you back. </h5>
+                     <h2>PROFILE EDIT </h2>   
+                        <h5>Welcome Builder, Love to see you back. </h5>
                        
                     </div>
                 </div>

@@ -11,9 +11,9 @@ if(isset($_POST['submit']))
 	$dob=$_POST['dob'];
 	$gender=$_POST['gender'];
 	$city=$_POST['city'];
-	$aadharno=$_POST['aadharno'];
+	// $aadharno=$_POST['aadharno'];
     $sql = "UPDATE registration SET fname='$fname',lname='$lname',address='$address',phonenumber='$phonenumber',email='$email',dob='$dob',
-            gender='$gender',city='$city',aadharno='$aadharno' WHERE username='".$_SESSION['user_name']."'";
+           city='$city' WHERE username='".$_SESSION['user_name']."'";
 
     if ($conn->query($sql) === TRUE) {
     echo "<script>alert('Record updated successfully')
@@ -321,7 +321,6 @@ div {
 
     <!-- Main -->
     <div class="main">
-        <!-- <h4>Profile</h4> -->
             <div class="card">
                 <div class="card-body">
                     <form name="myForm" method="POST" onsubmit="return validation();">
@@ -336,6 +335,7 @@ div {
                                     ?>
                                     </td>
                                 </tr>
+                                
                                 <tr>
                                     <td>First name</td>
                                     <td>:</td>                            
@@ -378,7 +378,7 @@ div {
                                     <td>Date of Birth</td>
                                     <td>:</td>
                                     <td>
-                                    <input type="date" class="form-control" placeholder="Date" id="dob" name="dob"  required>                                    </td>
+                                    <input type="date" class="form-control" placeholder="Date" id="dob" name="dob"  required  max="2000-01-01" >                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Address</td>
@@ -415,7 +415,7 @@ div {
                                     <td>:</td>
                                     <td>
                                     <select name="city" class="form-control" id="city" required >
-                                                                <option value="" disabled selected>Select your City</option>
+                                                                <option value="" disabled selected>---------------------------------------------</option>
                                                                     <option value="Alappuzha">Alappuzha</option>
                                                                     <option value="Cherthala">Cherthala</option>
                                                                     <option value="Kottayam">Kottayam</option>
