@@ -1,18 +1,18 @@
-﻿<?php
-     session_start();
-     if(isset($_SESSION['c_name']))
-     {
-                                      // echo 'inside';                          
-                            // echo '<a href="profile.php">'      
-                                          // echo '<h2> welcome'.$_SESSION['username'].'</h2>';
-                                  }
-    ?>
+<?php
+include ('../config.php');
+session_start();
+// $user=$_SESSION['user_name'];
+$sql="select * from contractor WHERE cusername='".$_SESSION['c_name']."'";
+// echo $sql;
+$rs= mysqli_query($conn,$sql);
+
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> index</title>
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
 	<!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -42,7 +42,7 @@ float: right;
 font-size: 16px;">  <?php
                                                 echo $_SESSION['c_name'];
 
-                      ?> <a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+                      ?><a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
@@ -54,23 +54,22 @@ font-size: 16px;">  <?php
 				
 					
                     <li>
-                        <a class="active-menu"  href="index.php"><i class="fa fa-home fa-3x"></i> Dashboard</a>
+                        <a  href="index.php"><i class="fa fa-home fa-3x"></i> Dashboard</a>
                     </li>
-                     <li>
-                        <a  href="profile.php"><i class="fa fa-user fa-3x"></i>Profile</a>
+                    <li>
+                        <a  href="profile.php"><i class="fa fa-user fa-3x"></i> Profile</a>
                     </li>
                     <li>
                         <a  href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i> change password</a>
                     </li>
-                    </li>
-					 <li >
+                    <li  >
                         <a  href="workers.php"><i class="fa fa-bar-chart-o fa-3x"></i>Add Workers</a>
                     </li>	
                     
                     <li  >
                         <a    href="#"><i class="fa fa-user fa-3x"></i>Leave Update</a>\ <ul class="nav nav-second-level">
                         <li>
-                                <a  href="viewleave.php">Approve Leave</a>
+                                <a  class="active-menu" href="viewleave.php">Approve Leave</a>
                             </li>
                              <li>
                                 <a href="lapproval.php">Pending</a>
@@ -78,9 +77,11 @@ font-size: 16px;">  <?php
                             <li>
                                 <a href="lreject.php">reject</a>
                             </li>
-                      
-                      
-                  
+                       
+                        </ul>
+                      </li>  	
+					
+			
                 </ul>
                
             </div>
@@ -91,39 +92,92 @@ font-size: 16px;">  <?php
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Contractor Dashboard</h2>   
-                        <h5>Welcome  Contractor, Love to see you back. </h5>
+                     <h2>LEAVE </h2>   
+                        <h5>Welcome Contractor, Love to see you back. </h5>
+                       
                     </div>
-                    <p style="color:white ;">Welcome</p>
-                </li>
-                <?php
-                echo '<center>welecome to admin page ';
-                                                echo '<center><h2 style="color:black ;"><b>'.$_SESSION['c_name'].'</b></h2>';
-
-                      ?>
-                <li class="nav-item">
-                </li>
-              </ul>
-                 <!-- /. ROW  -->           
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+   
+<section id="main-content">
+	<section class="wrapper">
+		<div class="table-agile-info">
+       
+ <div class="panel panel-default">
+    <div class="panel-heading">
+     Leave Approval
     </div>
-             <!-- /. PAGE INNER  -->
-            </div>
-         <!-- /. PAGE WRAPPER  -->
-        </div>
-     <!-- /. WRAPPER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="assets/js/jquery.metisMenu.js"></script>
-     <!-- MORRIS CHART SCRIPTS -->
-     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="assets/js/morris/morris.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
+    
+    <div>
+    
+      <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+        <thead>
+        
+          <tr>
+            <th data-breakpoints="xs">SLNO</th>
+            <th>Name</th>
+            <th>Todate</th>
+            <th>FromDate</th>
+            <th>Reason</th>
+            <th>Approve</th>
+            <th>Reject</th>
+            
+          
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-expanded="true">
+          <?php
+include("../config.php");
+?>
+<?php
+$s=1;
+$cid=$_SESSION['cid'];
+
+$sql=mysqli_query($conn,"SELECT l.*,r.* FROM tbl_leave l inner join  worker r on r.wid=l.wid  WHERE l.lstatus='pending'and l.cid=$cid");
+
+
+   while($display=mysqli_fetch_array($sql))
+   {
+       $login=$display['lid'];
+	echo "<tr>";
+	echo"<td>".$s++."</td>";
+    echo "<td>".$display["wname"]."</td>";
+    echo "<td>".$display["todate"]."</td>";
+    echo "<td>".$display["fromdate"]."</td>";
+	echo "<td>".$display["reason"]."</td>";
+    
+	?>
+     <td><button class="btn btn-primary" ><a href="approval.php?id=<?php echo $display['lid'];?>"style="color:white;">Approve</a></button> </td>
+     <td><button class="btn btn-danger" ><a href="rejectl.php?id=<?php echo $display['lid'];?>"style="color:white;">Reject</a></button> </td>
     
    
-</body>
-</html>
+
+	<?php
+	echo "</tr>";
+	
+  }
+
+echo "</table>";
+
+?>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+

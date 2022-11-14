@@ -2,7 +2,8 @@
 include ('../config.php');
 session_start();
 // $user=$_SESSION['user_name'];
-$sql="select * from registration where username='".$_SESSION['user_name']."'";
+$sql="select * from contractor WHERE cusername='".$_SESSION['c_name']."'";
+// echo $sql;
 $rs= mysqli_query($conn,$sql);
 
 ?>
@@ -16,6 +17,8 @@ $rs= mysqli_query($conn,$sql);
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- MORRIS CHART STYLES-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
         <!-- CUSTOM STYLES-->
     <link href="assets/css/custom.css" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
@@ -31,14 +34,15 @@ $rs= mysqli_query($conn,$sql);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">DREAM HOME</a> 
+                <a class="navbar-brand" href="index.html">DREAM HOME </a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <?php echo $_SESSION['user_name'];
+font-size: 16px;">  <?php
+                                                echo $_SESSION['c_name'];
 
-                      ?> &nbsp; <a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+                      ?><a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
@@ -48,38 +52,50 @@ font-size: 16px;"> <?php echo $_SESSION['user_name'];
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
 				
+					
                     <li>
-                        <a   href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a  href="index.php"><i class="fa fa-home fa-3x"></i> Dashboard</a>
                     </li>
-                
                     <li>
-                        <a  href="changepasssw.php"><i class="fa fa-bar-chart-o fa-3x"></i> change password</a>
+                        <a class="active-menu"  href="profile.php"><i class="fa fa-user fa-3x"></i> Profile</a>
                     </li>
-                    </li>
-                    
+                    <!-- <li>
+                        <a  href="pdfg.php"><i class="fa fa-bar-chart-o fa-3x"></i>floor plan</a>
+                    </li> -->
                     <li>
-                        <a class="active-menu"  href="index.php"><i class="fa fa-qrcode fa-3x"></i> edit Profile</a>
+                        <a  href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i> change password</a>
                     </li>
-						   <li  >
-                        <a  href="contractor.php"><i class="fa fa-bar-chart-o fa-3x"></i> Add Contractor</a>
-                    </li>	
-                      
                     <li  >
-                        <a    href="#"><i class="fa fa-user fa-3x"></i>Approve user</a> <ul class="nav nav-second-level">
-                                <li>
-                                <a  href="approve.php">Request</a>
+                        <a  href="workers.php"><i class="fa fa-bar-chart-o fa-3x"></i>Add Workers</a>
+                    </li>	
+                    <li  >
+                        <a    href="#"><i class="fa fa-user fa-3x"></i>Leave Update</a> <ul class="nav nav-second-level">
+                        <li>
+                                <a  href="viewleave.php">Approve Leave</a>
                             </li>
                              <li>
-                                <a href="reject.php">Approved</a>
+                                <a href="lapproval.php">Pending</a>
                             </li>
                             <li>
-                                <a href="pending.php">reject</a>
+                                <a href="lreject.php">reject</a>
                             </li>
+                    
+                  
+                        <!-- <a   href="builders.php"><i class="fa fa-user fa-3x"></i>Builders</a>\ <ul class="nav nav-second-level">
+                        <li>
+                                <a href="builders.php">Builders</a>
+                            </li>
+                             <li>
+                                <a href="pending.php">Status</a>
+                            </li> -->
+                            
                        
                         </ul>
-                      </li>  	   
-					                   
-                 
+                      </li>  	
+					
+			
+                </ul>
+               
             </div>
             
         </nav>  
@@ -88,8 +104,8 @@ font-size: 16px;"> <?php echo $_SESSION['user_name'];
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>PROFILE EDIT </h2>   
-                        <h5>Welcome Builder, Love to see you back. </h5>
+                     <h2>PROFILE </h2>   
+                        <h5>Welcome Contractor, Love to see you back. </h5>
                        
                     </div>
                 </div>
@@ -100,7 +116,8 @@ font-size: 16px;"> <?php echo $_SESSION['user_name'];
 body {
     background-color: #e8f5ff;
     font-family: Arial;
-    overflow: hidden;
+    overflow-y:scroll;
+    /* overflow: hidden; */
 }
 .edit {
     position: absolute;
@@ -178,7 +195,7 @@ body {
         <h1>Profile</h1>
             <div class="card">
             <div class="card-body">
-                <a href="editprofile.php"><i class="fa fa-pen fa-xs edit"></i></a>
+                <a href="editprofile.php"><i class="fa fa-pen"></i></a>
                 <table>
                     <tbody>
                         <tr>
@@ -186,7 +203,7 @@ body {
                             <td>:</td>
                             <td>
                             <?php
-                                                echo $_SESSION['user_name'];
+                                                echo $_SESSION['c_name'];
 
                       ?>
                             </td>
@@ -197,45 +214,38 @@ body {
                             <?php 
                             while($row = mysqli_fetch_array($rs)) {
                             ?>
-                            <td><?php echo $row['fname'];?></td>
+                            <td><?php echo $row['cname'];?></td>
                             
-                        </tr>
-                        <tr>
-                            <td>last name</td>
-                            <td>:</td>
-                            <td><?php echo $row['lname'];?></td>
+                       
+                        
                             
                         </tr>
                         <tr>
                             <td>Adhar No</td>
                             <td>:</td>
-                            <td><?php echo $row['aadharno'];?></td>
+                            <td><?php echo $row['caddress'];?></td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td><?php echo $row['email'];?></td>
+                            <td><?php echo $row['cphonenumber'];?></td>
                         </tr>
                         <tr>
                             <td>Address</td>
                             <td>:</td>
-                            <td><?php echo $row['address'];?></td>
+                            <td><?php echo $row['cdob'];?></td>
                         </tr>
                         <tr>
                             <td>phone number</td>
                             <td>:</td>
-                            <td><?php echo $row['phonenumber'];?></td>
+                            <td><?php echo $row['cgender'];?></td>
                         </tr>
                         <tr>
                             <td>gender</td>
                             <td>:</td>
-                            <td><?php echo $row['gender'];?></td>
+                            <td><?php echo $row['ccity'];?></td>
                         </tr>
-                        <tr>
-                            <td>city</td>
-                            <td>:</td>
-                            <td><?php echo $row['city'];?></td>  
-                        </tr>
+                       
                         <?php
                             }
                             ?>
@@ -244,9 +254,11 @@ body {
             </div>
         </div>
 
-                     <!-- /. ROW  -->
-
-                     </div>
+                   <!-- <li class="nav-item">
+                </li> -->
+              </ul>
+                 <!-- /. ROW  -->           
+    </div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
@@ -259,6 +271,9 @@ body {
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
+     <!-- MORRIS CHART SCRIPTS -->
+     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
       <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
     

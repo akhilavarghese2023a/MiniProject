@@ -1,20 +1,23 @@
 ﻿<?php include ('../config.php');
+session_start();
+$cid=$_SESSION['cid'];
 if(isset($_POST['submit']))
 {
-	$cname=$_POST['cname'];
-	$caddress=$_POST['caddress'];
-	$cphonenumber=$_POST['cphonenumber'];
-	$cdob=$_POST['cdob'];
-	$cgender=$_POST['cgender'];
-	$ccity=$_POST['ccity'];
+	$cid=$_SESSION['cid'];
+	$wname=$_POST['wname'];
+	$waddress=$_POST['waddress'];
+	$wphonenumber=$_POST['wphonenumber'];
+	$wdob=$_POST['wdob'];
+	$wgender=$_POST['wgender'];
+	$wcity=$_POST['wcity'];
+    $workertype=$_POST['workertype'];
 	//$cfile=addcslashes(file_get_contents($_FILES["image"]["tmp_name"]));
-	$cusername=$_POST['cusername'];
-	$cpassword=$_POST['cpassword'];
-	// $pass=md5($cpassword);
-	$ccpassword=$_POST['ccpassword'];
-
-	                                                    
-    $select="SELECT * from contractor WHERE cusername='$cusername' && cpassword='$cpassword'";
+	$wusername=$_POST['wusername'];
+	$wpassword=$_POST['wpassword'];
+	// $pass=md5($wpassword);
+	$wcpassword=$_POST['wcpassword'];
+                               
+    $select="SELECT * from worker WHERE wusername='$wusername' ";
 	$result= mysqli_query($conn,$select);
 	if(mysqli_num_rows($result)> 0 )
 	{
@@ -23,7 +26,7 @@ if(isset($_POST['submit']))
 			echo '</script>';
 		// $error[]='user already exist';
 	}else{
-		if ($cpassword != $ccpassword)
+		if ($wpassword != $wcpassword)
 		{
 			echo '<script type="text/javascript">';
    			echo ' alert("password does not match")';
@@ -31,11 +34,10 @@ if(isset($_POST['submit']))
 
 		}else   
 		{
-			if($cpassword != "")
+			if($wpassword != "")
 			{
-				
-		$cpass=md5($cpassword);		
-		$sql="INSERT INTO contractor(cname, caddress, cphonenumber,  cdob, cgender, ccity,cusertype,cusername, cpassword,status) VALUES ('$cname','$caddress','$cphonenumber','$cdob','$cgender','$ccity','contractor', '$cusername','$cpass','approved')";
+				$pass=md5($wpassword);
+		$sql="INSERT INTO worker(cid,wname, waddress, wphonenumber,  wdob, wgender, wcity,workertype,wusertype,wusername, wpassword, status) VALUES ('$cid','$wname','$waddress','$wphonenumber','$wdob','$wgender','$wcity','$workertype','worker', '$wusername','$pass','approved')";
 		$result=mysqli_query($conn,$sql);
 		 if($result)
 		 {
@@ -56,6 +58,7 @@ if(isset($_POST['submit']))
   }
   
 ?>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -81,12 +84,15 @@ if(isset($_POST['submit']))
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Binary admin</a> 
+                <a class="navbar-brand" href="index.html"> DREAM HOME</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+font-size: 16px;"> <?php
+                                                echo $_SESSION['c_name'];
+
+                      ?><a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
@@ -96,27 +102,32 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
 				
-					
+					<li>
+                        <a   href="index.php"><i class="fa fa-home fa-3x"></i> Dashboard</a>
+                    </li>
+                     <li>
+                        <a  href="profile.php"><i class="fa fa-user fa-3x"></i>Profile</a>
+                    </li>
                     <li>
-                        <a  href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a  href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i> change password</a>
                     </li>
-                      <li>
-                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
                     </li>
-                    <li>
-                        <a  class="active-menu" href="contractor.php"><i class="fa fa-qrcode fa-3x"></i>contractor add </a>
-                    </li>
-						   <li  >
-                        <a  href="changepasssw.php"><i class="fa fa-bar-chart-o fa-3x"></i> change password</a>
+					 <li >
+                        <a class="active-menu" href="workers.php"><i class="fa fa-bar-chart-o fa-3x"></i>Add Workers</a>
                     </li>	
-                     
-                   				
-					
-					                   
-                   
-                  <li  >
-                        <a  href="blank.html"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
-                    </li>	
+                    
+                    <li  >
+                        <a    href="#"><i class="fa fa-user fa-3x"></i>Leave Update</a>\ <ul class="nav nav-second-level">
+                        <li>
+                                <a  href="viewleave.php">Approve Leave</a>
+                            </li>
+                             <li>
+                                <a href="lapproval.php">Pending</a>
+                            </li>
+                            <li>
+                                <a href="lreject.php">reject</a>
+                            </li>
+                      
                 </ul>
                
             </div>
@@ -127,19 +138,19 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Tabs & Panels </h2>   
-                        <h5>Welcome Jhon Deo , Love to see you back. </h5>
+                     <h2>ADD Workers </h2>   
+                        <h5>Welcome Contractor , Love to see you back. </h5>
                        
                     </div>
                 </div>
                  <!-- /. ROW  -->
                  <hr />
-                 <form method="POST">
+				 <form method="POST">
 			<section class="ftco-section">
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-md-6 text-center mb-5">
-							<h2 class="heading-section">Add contractor</h2>
+							<h4 class="heading-section">WORKERS REGISTRATION </h4>
 						</div>
 					</div>
 					<div class="row justify-content-center">
@@ -147,17 +158,16 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 							<div class="wrap d-md-flex">
 								<div class="text-wrap p-4 p-lg-5 d-flex img d-flex align-items-end" style="background-image: url(images/bg1.jpg);">
 									<div class="text w-100">
-										
+									
 									</div>
 						  </div>
 								<div class="login-wrap p-4 p-md-5">
-							  <h3 class="mb-3">Add contractor</h3>
 									<form action="#" class="signup-form" onclick="return validation()">
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group d-flex align-items-center">
-											  		<label class="label" for="name">Cotractor  Name</label>
-											  		<input type="text" class="form-control" name="cname" id="cname" placeholder="Contractor Name" autocomplete="off" required>	
+											  		<label class="label" for="name">Worker  Name</label>
+											  		<input type="text" class="form-control" name="wname" id="wname" placeholder="worker Name" autocomplete="off" required>	
 										  		</div>
 												</div>
 										</div>
@@ -167,8 +177,8 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 											<div class="row">
 												<div class="col-md-12">
 													<div class="form-group d-flex align-items-center">
-												  		<label class="label" for="name">Contractor Address</label>
-												  		<textarea class="form-control" placeholder=" Contractor Address" rows="5" id="caddress" name="caddress" required
+												  		<label class="label" for="name">Worker Address</label>
+												  		<textarea class="form-control" placeholder=" Worker Address" rows="5" id="waddress" name="waddress" required
 														  required pattern="[a-zA-Z]{3,30}"  
 															oninvalid="setCustomValidity('fill address !!')" 
 															oninput="setCustomValidity('')"></textarea>
@@ -180,7 +190,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 												<div class="col-md-12">
 													<div class="form-group d-flex align-items-center">
 												  		<label class="label" for="name">Phone Number</label>
-												  		<input type="text" class="form-control" placeholder="Phone Number" id="cphonenumber" name="cphonenumber"
+												  		<input type="text" class="form-control" placeholder="Phone Number" id="wphonenumber" name="wphonenumber"
 														  pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
 														oninvalid="setCustomValidity('fill phoneno !!')"  
 															oninput="setCustomValidity('')"
@@ -197,24 +207,24 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 												<div class="col-md-12">
 													<div class="form-group d-flex align-items-center">
 											  			<label class="label" for="name">Date of Birth</label>
-											  			<input type="date" class="form-control" placeholder="Date" id="cdob" name="cdob" style="width:100%" required>
+											  			<input type="date" class="form-control" placeholder="Date" id="wdob" name="wdob" style="width:100%" required>
 										  			</div>
 												</div>
 												<div class="row">
 													<span id="date1" style="color:red;"> </span>
 												</div>
 												<div class="col-md-12">
-													<div class="form-group d-flex align-items-center">
+													<div class="form-group d-flex align-items-center"><label>Gender<label>
 												  		<label class="label" for="name">Gender &nbsp;&nbsp;&nbsp;&nbsp;</label> 
-													  <input type="radio"  name="cgender" value="male" id="cgender" style="size:20%;" required/>Male  &nbsp;  
-													  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  name="cgender" value="female" id="cgender"required/>Female    
+													  <input type="radio"  name="wgender" value="male" id="wgender" style="size:20%;" required/>Male  &nbsp;  
+													  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  name="wgender" value="female" id="wgender"required/>Female    
 												    </div>
                                                  </div>
 											</div>
 											<div class="col-md-12">
 													<div class="form-group d-flex align-items-center">
 												  		<label class="label" for="name">City &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-											  			<select name="ccity" class="form-control" id="ccity" required>
+											  			<select name="wcity" class="form-control" id="wcity" required>
 														  <option value="" disabled selected>Select your City</option>
 															<option value="Alappuzha">Alappuzha</option>
 															<option value="Cherthala">Cherthala</option>
@@ -223,6 +233,20 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 															<option value="Kanjikuzhi">Kanjikuzhi</option>
 															<option value="Kalavoor">Kalavoor</option>
 															<option value="Kuttanad">Kuttanad</option>
+
+											  			</select>
+										 			 </div>
+												</div>
+                                                <div class="col-md-12">
+													<div class="form-group d-flex align-items-center">
+												  		<label class="label" for="name">Worker Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+											  			<select name="workertype" class="form-control" id="workertype" required>
+														  <option value="" disabled selected>Select workers type</option>
+															<option value="Plumber">Plumber</option>
+															<option value="Electtrician">Electrician</option>
+															<option value="Painter">Painter</option>
+															<option value="Decorator">Decorator</option>
+															<option value="Labourer"> Labourer</option>
 
 											  			</select>
 										 			 </div>
@@ -236,7 +260,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 												<div class="col-md-12">
 													<div class="form-group d-flex align-items-center">
 											  			<label class="label" for="website">Username</label>
-											  			<input type="text" class="form-control" placeholder="Username" id="cusername" name="cusername" required>
+											  			<input type="text" class="form-control" placeholder="Username" id="wusername" name="wusername" required>
 										 			 </div>
 													  <div class="row">
 														<span id="username1" style="color:red;"> </span>
@@ -244,13 +268,13 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 													<div class="col-md-12">
 														<div class="form-group d-flex align-items-center">
 															<label class="label" for="password">Password &nbsp;&nbsp;&nbsp;</label>
-									  						<input type="password" class="form-control" placeholder="Password" id="cpassword" name="cpassword" required>
+									  						<input type="password" class="form-control" placeholder="Password" id="wpassword" name="wpassword" required>
 														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="form-group d-flex align-items-center">
 															<label class="label" for="password">Conform Password</label>
-									  						<input type="password" class="form-control" placeholder="Conform Password" id="ccpassword" name="ccpassword" required>
+									  						<input type="password" class="form-control" placeholder="Conform Password" id="wcpassword" name="wcpassword" required>
 														</div>
 													</div>
 												
@@ -275,8 +299,18 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
                                                   </div>
 											</div>
 										</div>
-									
+										<a href="../">Back to Home</a>
 									</form>	
+						  
+						</div>
+						<a href="../">Back to Home</a>
+					  </div>
+						</div>
+					</div>
+				</div>
+			</section>
+</form>
+		
 						  
 						</div>
 						

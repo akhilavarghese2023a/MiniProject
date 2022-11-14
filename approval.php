@@ -1,6 +1,6 @@
 <?php
 
-include("config.php");
+include("../config.php");
 ?>
 
 <form action="" method="POST">
@@ -10,7 +10,7 @@ include("config.php");
 if(isset($_GET['id']))
 {
  $lId=$_GET['id'];
-  $result=mysqli_query($con,"UPDATE tbl_leave SET lestatus='Approve' where leid=$lId");
+  $result=mysqli_query($conn,"UPDATE tbl_leave SET lstatus='Approve' where lid=$lId ");
   
 }
 if($result)

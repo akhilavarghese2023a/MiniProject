@@ -3,17 +3,16 @@ include ('../config.php');
 session_start();
 if(isset($_POST['submit']))
 {
-	$fname=$_POST['fname'];
-	$lname=$_POST['lname'];
-	$address=$_POST['address'];
-	$phonenumber=$_POST['phonenumber'];
-	$email=$_POST['email'];
-	$dob=$_POST['dob'];
-	$gender=$_POST['gender'];
-	$city=$_POST['city'];
+	$fname=$_POST['cname'];
+	$address=$_POST['caddress'];
+	$phonenumber=$_POST['cphonenumber'];
+	$email=$_POST['cemail'];
+	$dob=$_POST['cdob'];
+	$gender=$_POST['cgender'];
+	$city=$_POST['ccity'];
 	// $aadharno=$_POST['aadharno'];
-    $sql = "UPDATE registration SET fname='$fname',lname='$lname',address='$address',phonenumber='$phonenumber',email='$email',dob='$dob',
-           city='$city' WHERE username='".$_SESSION['user_name']."'";
+    $sql = "UPDATE registration SET cname='$fname',caddress='$address',cphonenumber='$phonenumber',cemail='$email',cdob='$dob',
+           ccity='$city' WHERE cusername='".$_SESSION['c_name']."'";
 
     if ($conn->query($sql) === TRUE) {
     echo "<script>alert('Record updated successfully')
@@ -321,6 +320,7 @@ div {
 
     <!-- Main -->
     <div class="main">
+        <h1>Profile</h1>
             <div class="card">
                 <div class="card-body">
                     <form name="myForm" method="POST" onsubmit="return validation();">
@@ -331,28 +331,21 @@ div {
                                     <td>:</td>
                                     <td>
                                     <?php
-                                        echo $_SESSION['user_name'];
+                                        echo $_SESSION['c_name'];
                                     ?>
                                     </td>
                                 </tr>
-                                
                                 <tr>
                                     <td>First name</td>
                                     <td>:</td>                            
-                                    <td>
-                                        <input type="text" class="form-control" name="fname" id="name" placeholder="First Name" autocomplete="off" onkeyup="return Validstr1()"
-                                                            required pattern="[a-zA-Z]{3,30}"
-                                                            oninvalid="setCustomValidity('input is incorrect !!')" 
-                                                                oninput="setCustomValidity('')"
-                                                                    maxlength="30" onkeyup="return validation()">
-                                    </td>
+                                  
                                     
                                 </tr>
                                 <tr>
-                                    <td>last name</td>
+                                    <td> name</td>
                                     <td>:</td>
                                     <td>
-                                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Fast Name" autocomplete="off" onkeyup="return Validstr2()"
+                                    <input type="text" class="form-control" name="cname" id="cname" placeholder="Fast Name" autocomplete="off" onkeyup="return Validstr2()"
                                                             required pattern="[a-zA-Z]{3,30}"
                                                             oninvalid="setCustomValidity('input is incorrect !!')" 
                                                                 oninput="setCustomValidity('')"
@@ -371,20 +364,20 @@ div {
                                     <td>Email</td>
                                     <td>:</td>
                                     <td>
-                                    <input  type="text" name="email" placeholder="Enter your email" id="email"  required pattern="/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/" onkeyup="return Validateemail()">
+                                    <input  type="text" name="cemail" placeholder="Enter your email" id="email"  required pattern="/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/" onkeyup="return Validateemail()">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Date of Birth</td>
                                     <td>:</td>
                                     <td>
-                                    <input type="date" class="form-control" placeholder="Date" id="dob" name="dob"  required  max="2000-01-01" >                                    </td>
+                                    <input type="date" class="form-control" placeholder="Date" id="cdob" name="cdob"  required>                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Address</td>
                                     <td>:</td>
                                     <td>
-                                    <textarea class="form-control" placeholder="Address" rows="5" id="address" name="address" required
+                                    <textarea class="form-control" placeholder="Address" rows="5" id="caddress" name="caddress" required
                                                                 required pattern="[a-zA-Z]{3,30}"  
                                                                     oninvalid="setCustomValidity('fill address !!')" 
                                                                     oninput="setCustomValidity('')"
@@ -395,7 +388,7 @@ div {
                                     <td>phone number</td>
                                     <td>:</td>
                                     <td>
-                                    <input type="text" class="form-control" placeholder="Phone Number" min="10" maxlength="10" id="phonenumber" name="phonenumber" required onkeyup="return Validphone()"
+                                    <input type="text" class="form-control" placeholder="Phone Number" min="10" maxlength="10" id="cphonenumber" name="cphonenumber" required onkeyup="return Validphone()"
                                                                 pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
                                                                 oninvalid="setCustomValidity('fill phoneno !!')"  
                                                                     oninput="setCustomValidity('')"
@@ -414,8 +407,8 @@ div {
                                     <td>city</td>
                                     <td>:</td>
                                     <td>
-                                    <select name="city" class="form-control" id="city" required >
-                                                                <option value="" disabled selected>---------------------------------------------</option>
+                                    <select name="ccity" class="form-control" id="city" required >
+                                                                <option value="" disabled selected>Select your City</option>
                                                                     <option value="Alappuzha">Alappuzha</option>
                                                                     <option value="Cherthala">Cherthala</option>
                                                                     <option value="Kottayam">Kottayam</option>

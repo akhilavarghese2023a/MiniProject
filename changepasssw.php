@@ -2,10 +2,10 @@
 session_start();
 ?> 
 <?php include("../config.php");
-	$username=$_SESSION["user_name"];
-	$sql=mysqli_query($conn,"SELECT * FROM registration where username='$username'");
+	$cname=$_SESSION["c_name"];
+	$sql=mysqli_query($conn,"SELECT * FROM contractor where cusername='$cname'");
 	$display=mysqli_fetch_array($sql);
-	$curentpwd=$display['password'];
+	$curentpwd=$display["cpassword"];
 ?>
 <?php
 if(isset($_POST["btnsubmit"]))
@@ -15,12 +15,13 @@ if(isset($_POST["btnsubmit"]))
     $curentpwd;
 	if($curentpwd==$cc)
 	{
-			$ccpassword=$_POST['npd'];
-      $ccpass=md5($ccpassword);
-			$sql=mysqli_query($conn,"UPDATE registration SET password='$ccpass' WHERE username='$username'");
+			$cpassword=$_POST['npd'];
+            $ccpass=md5($cpassword);
+			$sql=mysqli_query($conn,"UPDATE contractor SET cpassword='$ccpass' WHERE cname='$cname'");
+           
 			if($sql)
 			{
-					echo "<script>alert('Password Updated Succesfully!!Plase login again!!');window.location='../login/login.php'</script>";
+					echo "<script>alert('Password Updated Succesfully!!Plase login again!!');window.location='../login/conntractorlogin.php'</script>";
 			}
 	}
 	else
@@ -57,7 +58,7 @@ if(isset($_POST["btnsubmit"]))
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <?php    echo $_SESSION['user_name'];
+font-size: 16px;"> <?php    echo $_SESSION['c_name'];
 
                       ?> &nbsp; <a href="../login/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>   
@@ -70,35 +71,36 @@ font-size: 16px;"> <?php    echo $_SESSION['user_name'];
 					</li>
 				
 					
-                    <li>
-                        <a  href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
-                    </li>
+                    
                     
                     <li>
-                        <a  class="active-menu" href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i>change password</a>
+                        <a   href="index.php"><i class="fa fa-home fa-3x"></i> Dashboard</a>
+                    </li>
+                     <li>
+                        <a  href="profile.php"><i class="fa fa-user fa-3x"></i>Profile</a>
                     </li>
                     <li>
-                        <a  href="profile.php"><i class="fa fa-qrcode fa-3x"></i> Edit Profile</a>
+                        <a  class="active-menu" href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i> change password</a>
                     </li>
-						   <li  >
-                        <a  href="contractor.php"><i class="fa fa-bar-chart-o fa-3x"></i> Add Contractor</a>
+                    </li>
+					 <li >
+                        <a  href="workers.php"><i class="fa fa-bar-chart-o fa-3x"></i>Add Workers</a>
                     </li>	
                     
-                			
                     <li  >
-                        <a    href="#"><i class="fa fa-user fa-3x"></i>Approve user</a> <ul class="nav nav-second-level">
-                                <li>
-                                <a  href="approve.php">Request</a>
+                        <a    href="#"><i class="fa fa-user fa-3x"></i>Leave Update</a>\ <ul class="nav nav-second-level">
+                        <li>
+                                <a  href="viewleave.php">Approve Leave</a>
                             </li>
                              <li>
-                                <a href="reject.php">Approved</a>
+                                <a href="lapproval.php">Pending</a>
                             </li>
                             <li>
-                                <a href="pending.php">reject</a>
+                                <a href="lreject.php">reject</a>
                             </li>
-                       
-                        </ul>
-                      </li>  	   
+                   	
+                </ul>
+               
             </div>
             
         </nav>  
@@ -108,15 +110,15 @@ font-size: 16px;"> <?php    echo $_SESSION['user_name'];
                 <div class="row">
                     <div class="col-md-12">
                      <h2>CHANGE PASSWORD </h2>   
-                        <h5>Welcome Builder , Love to see you back. </h5>
+                        <h5>Welcome contractor , Love to see you back. </h5>
                        
                     </div>
                 </div>
                  <!-- /. ROW  -->
                  <hr />
                                  
-                 <div class="login-wrapper">
-                 <form action="" class="form" method="POST">
+                 <form action="" class="form" method="post">
+        <h2>Login</h2>
         <h6>Old Password</h6>
         <div class="input-group">
           <input type="password" class="form-control" name="pd"  id="name">
@@ -127,10 +129,7 @@ font-size: 16px;"> <?php    echo $_SESSION['user_name'];
            <input type="password" class="form-control" name="npd"  id="name">
          
         </div>
-        <button type="submit" name="btnsubmit" class="btn btn-info">Submit</button>
-      </form>
-      <div>
-</div>
+        <button type="submit" name="btnsubmit"class="btn btn-info">Submit</button>
                     <!-- /. ROW  -->
 
     </div>

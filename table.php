@@ -59,30 +59,25 @@ font-size: 16px;">  <a href="../login/logout.php" class="btn btn-danger square-b
                     <li>
                         <a  href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
-                
+                   <li>
+                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
+                    </li>
                     <li>
                         <a  href="changepasssw.php"><i class="fa fa-qrcode fa-3x"></i> change password</a>
                     </li>
-                    <li>
-                        <a  href="profile.php"><i class="fa fa-qrcode fa-3x"></i> Edit Profile</a>
-                    </li>
-						
-                    <li  >
-                        <a    href="#"><i class="fa fa-user fa-3x"></i>Approve user</a> <ul class="nav nav-second-level">
-                                <li>
-                                <a  href="approve.php">Request</a>
-                            </li>
-                             <li>
-                                <a href="reject.php">Approved</a>
-                            </li>
-                            <li>
-                                <a href="pending.php">reject</a>
-                            </li>
-                       
-                        </ul>
-                      </li>  	   
-                       
+						   <li  >
+                        <a  href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
+                    </li>	
                      
+                    <li  >
+                        <a  href="form.html"><i class="fa fa-edit fa-3x"></i> Forms </a>
+                    </li>				
+					
+					                   
+                   
+                        <a   href="blank.html"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
+                    </li>	
+                </ul>
                
             </div>
             
